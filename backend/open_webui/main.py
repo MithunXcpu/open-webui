@@ -300,6 +300,21 @@ logging.basicConfig(stream=sys.stdout, level=GLOBAL_LOG_LEVEL)
 log = logging.getLogger(__name__)
 
 
+def _register_financial_services_workbench() -> None:
+    """Put the sample Financial Services Workbench on the import path.
+
+    The add-on lives outside the Open WebUI package. Tool and function modules
+    import it when this process starts from the fork. Safe to remove.
+    """
+    root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'financial_services_workbench'))
+    if os.path.isdir(root) and root not in sys.path:
+        sys.path.insert(0, root)
+        log.info('Financial Services Workbench package on sys.path')
+
+
+_register_financial_services_workbench()
+
+
 async def emit_chat_list_event(metadata: dict, chat_id: str):
     if not is_saved_chat_id(chat_id):
         return

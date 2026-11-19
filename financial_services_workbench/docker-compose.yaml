@@ -1,0 +1,16 @@
+# Sample MCP server for the Financial Services Agent Workbench.
+# From the repo root:
+#   docker compose -f financial_services_workbench/docker-compose.yaml up --build
+services:
+  financial-services-workbench:
+    build: .
+    image: financial-services-workbench:local
+    ports:
+      - "8765:8765"
+    environment:
+      FS_LLM_PROVIDER: ${FS_LLM_PROVIDER:-mock}
+      NVIDIA_API_KEY: ${NVIDIA_API_KEY:-}
+      NVIDIA_API_BASE_URL: ${NVIDIA_API_BASE_URL:-https://integrate.api.nvidia.com/v1}
+      NVIDIA_MODEL: ${NVIDIA_MODEL:-meta/llama-3.3-70b-instruct}
+      FSW_MCP_HOST: 0.0.0.0
+      FSW_MCP_PORT: "8765"

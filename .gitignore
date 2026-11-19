@@ -315,3 +315,7 @@ cypress/screenshots
 
 # Local temporary fixtures and screenshots
 /tmp/
+
+# Financial Services Workbench runtime output
+financial_services_workbench/logs/*.jsonl
+financial_services_workbench/evals/out/

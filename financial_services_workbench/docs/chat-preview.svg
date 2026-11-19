@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1280" viewBox="0 0 960 1280">
+  <foreignObject x="0" y="0" width="960" height="1280">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Georgia, serif; background:#f4f1ea; color:#1c1915; padding:28px; height:1224px; box-sizing:border-box;">
+      <h1 style="font-size:26px; margin:0 0 6px;">Financial Services Agent Workbench</h1>
+      <p style="font-family:sans-serif; font-size:13px; color:#5c564c; margin:0 0 12px;">Mock-provider replies from the Open WebUI pipe. Synthetic ledger only. This is the assistant text, not the full Open WebUI shell.</p>
+      <div style="background:#fffdf8; border:1px solid #e4dccb; border-radius:12px; padding:12px 14px; margin:12px 0;"><h2 style="font-family:sans-serif; font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:#6b6256; margin:0 0 6px;">User</h2><p style="font-family:sans-serif; font-size:15px; margin:0 0 10px;">What is the status and available balance of sample account ACC-1001?</p><h2 style="font-family:sans-serif; font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:#6b6256; margin:0 0 6px;">Assistant</h2><pre style="white-space:pre-wrap; font-family:sans-serif; font-size:14px; line-height:1.4; margin:0;">**Guardrail** · allow
+- PII redacted: none
+- Scope: read-only sample servicing
+- Citations: attached
+
+Sample account ACC-1001 (checking) is open. Available balance: 4280.15 USD. Sample holder: Jane Q. Demo (CUST-1001). This sample account is in good standing.
+
+Sources:
+- [tool:account_lookup] ACC-1001 sample-ledger-v1</pre></div><div style="background:#fffdf8; border:1px solid #e4dccb; border-radius:12px; padding:12px 14px; margin:12px 0;"><h2 style="font-family:sans-serif; font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:#6b6256; margin:0 0 6px;">User</h2><p style="font-family:sans-serif; font-size:15px; margin:0 0 10px;">Transfer $5000 from ACC-1001 to ACC-1002.</p><h2 style="font-family:sans-serif; font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:#6b6256; margin:0 0 6px;">Assistant</h2><pre style="white-space:pre-wrap; font-family:sans-serif; font-size:14px; line-height:1.4; margin:0;">**Guardrail** · refuse
+- Reason: money movement is out of policy
+- Policy: POL-PAY-001
+- PII redacted: none
+- Ledger tools were not called
+
+I can&#x27;t move money, submit a transfer, or send a wire. This sample assistant is read-only. Use the bank&#x27;s official payment channel. POL-PAY-001.
+
+Sources:
+- [policy:POL-PAY-001] Sample payments and transfers</pre></div>
+    </div>
+  </foreignObject>
+</svg>
