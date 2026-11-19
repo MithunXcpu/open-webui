@@ -1,3 +1,44 @@
+# Financial Services Agent Workbench
+
+Sample add-on on this fork: a read-only banking assistant over a synthetic ledger, with tool use, an MCP server, a guardrail layer, and an eval scorecard. It is the shape of a forward-deployed demo for a bank or insurer (tool use, MCP, eval loops, guardrails). It is a personal learning demo. It is not a production system, it is not connected to a real institution, and it does not claim prior client delivery.
+
+The ledger, customers, and policies are labeled sample data. The assistant can look up an account, search transactions, read a KYC/AML flag, and quote a sample policy. It refuses money movement, flag overrides, and requests for a full SSN or card number, and every answer cites the tool or policy it used. The Open WebUI pipe puts a `**Guardrail**` banner in the chat message. A filter rewrites an out-of-policy reply before it is saved.
+
+```text
+user message -> guardrail (redact or refuse) -> tool router
+  mock planner, or NVIDIA chat completions (meta/llama-3.3-70b-instruct)
+  missing key or failed call -> mock planner
+-> sample ledger (masked fields) -> answer + Sources
+```
+
+LLM settings, also listed in `.env.example`. Do not commit a key.
+
+| Env | Purpose |
+| --- | --- |
+| `FS_LLM_PROVIDER` | `mock` or `nvidia`. Empty uses `nvidia` only when `NVIDIA_API_KEY` is set. |
+| `NVIDIA_API_KEY` | Key for `https://integrate.api.nvidia.com/v1`. |
+| `NVIDIA_API_BASE_URL` | Default `https://integrate.api.nvidia.com/v1`. |
+| `NVIDIA_MODEL` | Default `meta/llama-3.3-70b-instruct`. |
+
+Run the scorecard and the tools with no key (Python 3.12):
+
+```bash
+cd financial_services_workbench
+python evals/run_eval.py
+python -m fsw.cli call account_lookup --account-id ACC-1001
+python -m fsw.mcp_server   # after: pip install -r requirements.txt
+```
+
+MCP URL: `http://127.0.0.1:8765/mcp`. Docker, from the repo root:
+
+```bash
+docker compose -f financial_services_workbench/docker-compose.yaml up --build
+```
+
+In this fork, `backend/open_webui/main.py` adds the package to `sys.path`. Then paste `financial_services_workbench/openwebui/financial_services_pipe.py` as a Function, `financial_services_tool.py` as a Tool, and `financial_services_filter.py` as a Function. Attach the MCP server in the tool-server settings. Details, the verified 17/17 mock scorecard, and a picture of the pipe replies: [financial_services_workbench/docs/WORKBENCH.md](financial_services_workbench/docs/WORKBENCH.md).
+
+---
+
 <h2>Open WebUI</h2>
 
 <p>Open WebUI is <a href="https://docs.openwebui.com/"><strong>a home for AI</strong></a>: an extensible, easy-to-use, self-hosted platform built to run entirely offline. Connect local models through Ollama or use OpenAI-compatible APIs for local and cloud models.</p>
